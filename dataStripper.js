@@ -30,10 +30,34 @@ if (type === 'TV Series' || document.querySelector('div[data-testid="episodes-he
     numberOfEpisodes = document.querySelector('div[data-testid="episodes-header"] a h3 span').textContent;
 }
 
+isConvertingRuntime = true;
+
+spliceStringTimeToInteger = (stringTime) => {
+    return +stringTime[0].split(' ')[0];
+}
+
+convertTimeStringToIntegerMinutes = (timeString) => {
+    minutes = timeString.match(/(\d)+ minutes/g);
+    hours = timeString.match(/(\d)+ hour/g);
+    outputIntegerTime = 0;
+    if (hours) {
+        outputIntegerTime += 60 * spliceStringTimeToInteger(hours);
+    }
+    if (minutes) {
+        outputIntegerTime += spliceStringTimeToInteger(minutes);
+    }
+    return outputIntegerTime;
+}
+
 runtime = '';
 
 if (document.querySelector('li[data-testid="title-techspec_runtime"] div')) {
-    runtime = document.querySelector('li[data-testid="title-techspec_runtime"] div').textContent;
+    runtimeTmp = document.querySelector('li[data-testid="title-techspec_runtime"] div').textContent;
+    if (isConvertingRuntime) {
+        runtime = convertTimeStringToIntegerMinutes(runtimeTmp);
+    } else {
+        tuntime = runtimeTmp;
+    }
 };
 
 plot = '';
