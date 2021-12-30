@@ -22,11 +22,15 @@ if([...document.querySelectorAll('div.TitleBlock__TitleContainer-sc-1nlhx7j-1 di
     year = [...document.querySelectorAll('div.TitleBlock__TitleContainer-sc-1nlhx7j-1 div ul li span')].map(s => s.textContent)[0];
 }
 
-type = document.querySelector('.ipc-inline-list > li').textContent === 'TV Series' || numberOfEpisodes !== 'N/A' ? 'TV Series' : 'Film';
+type = '';
+
+if (document.querySelector('.ipc-inline-list > li')) {
+    type = document.querySelector('.ipc-inline-list > li').textContent === 'TV Series' || numberOfEpisodes !== 'N/A' ? 'TV Series' : 'Film';
+}
 
 numberOfEpisodes = 'N/A'
 
-if (type === 'TV Series' || document.querySelector('div[data-testid="episodes-header"] a h3 span')) { 
+if (document.querySelector('div[data-testid="episodes-header"] a h3 span')) { 
     numberOfEpisodes = document.querySelector('div[data-testid="episodes-header"] a h3 span').textContent;
 }
 
