@@ -22,16 +22,16 @@ if([...document.querySelectorAll('div.TitleBlock__TitleContainer-sc-1nlhx7j-1 di
     year = [...document.querySelectorAll('div.TitleBlock__TitleContainer-sc-1nlhx7j-1 div ul li span')].map(s => s.textContent)[0];
 }
 
-type = '';
-
-if (document.querySelector('.ipc-inline-list > li')) {
-    type = document.querySelector('.ipc-inline-list > li').textContent === 'TV Series' || numberOfEpisodes !== 'N/A' ? 'TV Series' : 'Film';
-}
-
 numberOfEpisodes = 'N/A'
 
 if (document.querySelector('div[data-testid="episodes-header"] a h3 span')) { 
     numberOfEpisodes = document.querySelector('div[data-testid="episodes-header"] a h3 span').textContent;
+}
+
+type = '';
+
+if (document.querySelector('.ipc-inline-list > li')) {
+    type = document.querySelector('.ipc-inline-list > li').textContent === 'TV Series' || numberOfEpisodes !== 'N/A' ? 'TV Series' : 'Film';
 }
 
 isConvertingRuntime = true;
@@ -70,6 +70,6 @@ if (document.querySelector('span[data-testid="plot-l"]')) {
     plot = document.querySelector('span[data-testid="plot-l"]').textContent;
 }
 
-results = [title, documentURL, plot, type, numberOfEpisodes, runtime, year, genres].join('\t')
+results = [title, plot, type, numberOfEpisodes, runtime, year, genres, documentURL].join('\t')
 
 copy(results)
